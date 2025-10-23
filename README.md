@@ -91,7 +91,6 @@ I'm sharing this early to get feedback **before** building out the full parser a
 
 **Join the discussion:**
 - **GitHub:** [github.com/webcontextprotocol](https://github.com/webcontextprotocol)
-- **Discussions:** [GitHub Discussions](https://github.com/web-context-protocol/spec/discussions)
 - **Discord:** [Join the WCP Developer Community](https://discord.gg/cGfZmVA7)
 
 ---
