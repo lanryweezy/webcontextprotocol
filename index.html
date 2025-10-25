@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WCP Parser Demonstration</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; }
+    button { font-size: 1.2em; margin: 0.5em; padding: 0.5em 1em; }
+    pre { background-color: #f4f4f4; padding: 1em; border-radius: 5px; }
+  </style>
+</head>
+<body>
+
+  <h1>Web Context Protocol (WCP) Demonstration</h1>
+
+  <p>This page demonstrates the WCP parser. The buttons below have `data-wcp` attributes that are parsed by the `wcp-parser.js` script.</p>
+
+  <button data-wcp="action:add; object:cart; effect:async; primary:true">
+    Add to Cart
+  </button>
+
+  <button data-wcp="action:purchase; effect:navigate">
+    Checkout
+  </button>
+
+  <button data-wcp="action:delete; effect:modal">
+    Delete Project
+  </button>
+
+  <h2>Parsed WCP Data</h2>
+  <pre id="output"></pre>
+
+  <script src="wcp-parser.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const wcpElements = findAllWcpElements();
+      const outputElement = document.getElementById('output');
+
+      const simplifiedOutput = wcpElements.map(item => {
+        return {
+          tagName: item.element.tagName,
+          text: item.element.innerText,
+          wcp: item.data
+        };
+      });
+
+      outputElement.textContent = JSON.stringify(simplifiedOutput, null, 2);
+    });
+  </script>
+
+</body>
+</html>
