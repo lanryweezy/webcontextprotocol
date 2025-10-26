@@ -69,6 +69,41 @@ This isn’t about making AI smarter — it’s about giving **developers contro
 
 ---
 
+## 🚀 Running the Demo
+
+To see the WCP parser in action, follow these steps:
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/webcontextprotocol/wcp.git
+    cd wcp
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Start the development server:**
+    ```bash
+    npm start
+    ```
+
+4.  **Open the demo page:**
+    Open your browser and navigate to `http://localhost:8080`.
+
+---
+
+## 📦 Publishing to npm
+
+To publish a new version of the `@webcontextprotocol/dom` package, follow these steps:
+
+1.  **Update the version number** in `package.json` according to [Semantic Versioning](https://semver.org/).
+2.  **Run tests** to ensure everything is working correctly: `npm test`.
+3.  **Publish the package:** `npm publish --access public`.
+
+---
+
 ## 🚧 Roadmap
 
 - [ ] Define initial schema and parser

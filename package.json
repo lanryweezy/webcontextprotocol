@@ -1,0 +1,37 @@
+{
+  "name": "@webcontextprotocol/dom",
+  "version": "0.2.0",
+  "description": "A dependency-free parser for the Web Context Protocol (WCP).",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "http-server",
+    "test": "jest",
+    "build": "tsup wcp-parser.ts wcp-validator.ts --format cjs,esm --dts"
+  },
+  "keywords": [
+    "wcp",
+    "ai",
+    "automation"
+  ],
+  "author": "David Osemwegie",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "http-server": "^14.1.1",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "ts-jest": "^29.4.5",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom"
+  }
+}
