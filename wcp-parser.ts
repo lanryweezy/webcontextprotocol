@@ -1,18 +1,27 @@
 /**
- * @file wcp-parser.js
+ * @file wcp-parser.ts
  * @license CC0
  * @author David Osemwegie
  * @description A dependency-free parser for the Web Context Protocol (WCP).
  */
 
+export interface WcpData {
+  [key: string]: string;
+}
+
+export interface WcpElement {
+  element: HTMLElement;
+  data: WcpData;
+}
+
 /**
  * Parses a WCP string into a JavaScript object.
  *
- * @param {string} wcpString The WCP string to parse (e.g., "action:add; object:cart").
- * @returns {object} A key-value map of the parsed WCP attributes.
+ * @param wcpString The WCP string to parse (e.g., "action:add; object:cart").
+ * @returns A key-value map of the parsed WCP attributes.
  */
-function parseWCP(wcpString) {
-  const result = {};
+export function parseWCP(wcpString: string | null): WcpData {
+  const result: WcpData = {};
   if (!wcpString) {
     return result;
   }
@@ -33,12 +42,12 @@ function parseWCP(wcpString) {
 /**
  * Finds all elements with the `data-wcp` attribute and parses their values.
  *
- * @param {HTMLElement} rootElement The root element to search within (defaults to `document.body`).
- * @returns {Array<object>} An array of objects, each containing the element and its parsed WCP data.
+ * @param rootElement The root element to search within (defaults to `document.body`).
+ * @returns An array of objects, each containing the element and its parsed WCP data.
  */
-function findAllWcpElements(rootElement = document.body) {
-  const elements = rootElement.querySelectorAll('[data-wcp]');
-  const results = [];
+export function findAllWcpElements(rootElement: HTMLElement = document.body): WcpElement[] {
+  const elements = rootElement.querySelectorAll<HTMLElement>('[data-wcp]');
+  const results: WcpElement[] = [];
 
   for (const element of elements) {
     const wcpString = element.getAttribute('data-wcp');

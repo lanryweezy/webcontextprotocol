@@ -3,49 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WCP Parser Demonstration</title>
+  <title>WCP Parser & Validator Demonstration</title>
   <style>
     body { font-family: sans-serif; padding: 2em; }
-    button { font-size: 1.2em; margin: 0.5em; padding: 0.5em 1em; }
-    pre { background-color: #f4f4f4; padding: 1em; border-radius: 5px; }
+    button, input, select { font-size: 1.1em; margin: 0.5em; padding: 0.5em; }
+    pre { background-color: #f4f4f4; padding: 1em; border-radius: 5px; white-space: pre-wrap; }
+    .card { border: 1px solid #ccc; border-radius: 5px; padding: 1em; margin: 1em 0; }
+    .errors { border-left: 5px solid #e74c3c; padding-left: 10px; }
   </style>
 </head>
 <body>
 
-  <h1>Web Context Protocol (WCP) Demonstration</h1>
+  <h1>WCP v0.2 Parser & Validator</h1>
 
-  <p>This page demonstrates the WCP parser. The buttons below have `data-wcp` attributes that are parsed by the `wcp-parser.js` script.</p>
+  <div class="card">
+    <h2>Valid WCP Examples</h2>
+    <button data-wcp="action:add; object:cart; group-id:product-1; primary:true">Add to Cart</button>
+    <input type="text" placeholder="Search..." data-wcp="purpose:search-query">
+    <h3 data-wcp="value:product-name; group-id:product-1">Awesome Gadget</h3>
+    <button data-wcp="action:toggle; state:off">Toggle</button>
+  </div>
 
-  <button data-wcp="action:add; object:cart; effect:async; primary:true">
-    Add to Cart
-  </button>
-
-  <button data-wcp="action:purchase; effect:navigate">
-    Checkout
-  </button>
-
-  <button data-wcp="action:delete; effect:modal">
-    Delete Project
-  </button>
+  <div class="card">
+    <h2>Invalid WCP Examples</h2>
+    <button data-wcp="action:fly; effect:none">Invalid Action</button>
+    <button data-wcp="action:toggle">Missing State</button>
+  </div>
 
   <h2>Parsed WCP Data</h2>
   <pre id="output"></pre>
 
-  <script src="wcp-parser.js"></script>
-  <script>
+  <h2>Validator Results</h2>
+  <pre id="validator-output"></pre>
+
+  <script type="module">
+    import { findAllWcpElements } from './wcp-parser.js';
+    import { validateAllWcpElements } from './wcp-validator.js';
+
     document.addEventListener('DOMContentLoaded', () => {
+      // Parsing
       const wcpElements = findAllWcpElements();
       const outputElement = document.getElementById('output');
-
-      const simplifiedOutput = wcpElements.map(item => {
-        return {
-          tagName: item.element.tagName,
-          text: item.element.innerText,
-          wcp: item.data
-        };
-      });
-
+      const simplifiedOutput = wcpElements.map(item => ({
+        tagName: item.element.tagName,
+        text: item.element.innerText || item.element.value,
+        wcp: item.data
+      }));
       outputElement.textContent = JSON.stringify(simplifiedOutput, null, 2);
+
+      // Validation
+      const validationResults = validateAllWcpElements();
+      const validatorOutputElement = document.getElementById('validator-output');
+      if (validationResults.length > 0) {
+        validatorOutputElement.classList.add('errors');
+        const errorText = validationResults.map(result => {
+          const elId = result.element.id || `${result.element.tagName.toLowerCase()}:'${result.element.innerText}'`;
+          return `Element: ${elId}\nErrors:\n- ${result.errors.join('\n- ')}`;
+        }).join('\n\n');
+        validatorOutputElement.textContent = errorText;
+      } else {
+        validatorOutputElement.textContent = 'All WCP attributes are valid!';
+      }
     });
   </script>
 

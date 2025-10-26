@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCP Advanced Example: E-Commerce Product Page</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .product { border: 1px solid #eee; border-radius: 8px; padding: 20px; }
+        .product-image { max-width: 100%; border-radius: 8px; }
+        .price { font-size: 1.5em; color: #e74c3c; }
+        .add-to-cart { background-color: #27ae60; color: white; border: none; padding: 15px 25px; font-size: 1.2em; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>Advanced Example: E-Commerce Product Page</h1>
+
+    <div class="product" data-wcp="group-id:product-123">
+        <img src="https://via.placeholder.com/600x400" alt="Product Image" class="product-image" data-wcp="value:product-image; group-id:product-123">
+
+        <h2 data-wcp="value:product-name; group-id:product-123">The Ultimate Gadget</h2>
+
+        <p class="price" data-wcp="value:price; currency:USD; group-id:product-123">$99.99</p>
+
+        <p data-wcp="value:product-description; group-id:product-123">
+            This is the best gadget you've ever seen. It will change your life.
+        </p>
+
+        <button class="add-to-cart" data-wcp="action:add; object:cart; group-id:product-123; primary:true">
+            Add to Cart
+        </button>
+    </div>
+
+    <p style="margin-top: 20px;">
+        <a href="index.html">Back to Documentation</a>
+    </p>
+
+</body>
+</html>
